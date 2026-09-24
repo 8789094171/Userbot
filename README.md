@@ -89,11 +89,6 @@ Prefix Default: '.' ya ',' (Apne bot ke hisab se use karein)
 • .unpin        - Pinned message ko unpin karne ke liye.
 • .purge        - Jahan reply kiya hai wahan se niche ke saare messages ek sath delete karne ke liye.
 • .del          - Kisi ek particular message ko delete karne ke liye.
-• .lock <type>  - Group me media, links, ya stickers bhejne par temporary ban lagane ke liye.
-• .muteall      - Poore group ki chat ko ek sath lock/mute karne ke liye.
-• .unmuteall    - Mute kiye gaye poore group ko ek sath unlock karne ke liye.
-• .zombies      - Group me jitne bhi "Deleted Accounts" hain, unhe nikalne (kick) ke liye.
-• .unbanall     - Group ke saare banned members ko ek sath unban karne ke liye.
 
 🛡️ PM SECURITY & ANTI-PM (Inbox Safe Rakhne Ke Liye)
 ------------------------------------------------------------
