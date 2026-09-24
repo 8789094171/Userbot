@@ -1,1 +1,5 @@
 telethon>=1.42,<2
+# Optional voice-chat music support for .play/.vplay and controls.
+# FFmpeg must also be installed on the deployment host.
+PyTgCalls>=2.2.8
+yt-dlp>=2025.1.15
