@@ -1,5 +1,5 @@
 ============================================================
-           👑 ULTIMATE OWNER-ONLY USERBOT COMMANDS 👑
+            👑 ULTIMATE OWNER-ONLY USERBOT COMMANDS 👑
 ============================================================
 [Prefix usable: . or , | Target: For Main Account Owner Only]
 
@@ -48,11 +48,11 @@
 • .eval <code>           - Runtime Python syntax parser logic verify aur output fetch karne ke liye.
 
 ============================================================
-              🔥 ALL-IN-ONE COMBINED CATEGORIES 🔥
+               🔥 ALL-IN-ONE COMBINED CATEGORIES 🔥
 ============================================================
 
 🤖 SYSTEM CONTROL:     .alive, .ping, .restart, .update, .shutdown, .logs, .refresh
-👮 GROUP MODERATION:   .ban, .unban, .kick, .mute, .unmute, .pin, .purge, .del, .lock, .zombies, .unbanall, .muteall
+👮 GROUP MODERATION:   .ban, .unban, .kick, .mute, .unmute, .dban, .dmute, .pin, .unpin, .purge, .del
 🛡️ PM SECURITY:       .pmpermit, .a, .da, .block, .unblock
 🎭 CLONING & FUN:      .clone, .revert, .echo, .rmecho, .vapor, .tiny, .reverse, .bold, .italic, .mono
 💥 SPAM & RAID:        .spam, .cspam, .wspam, .delayspam, .raid, .replyraid, .hang, .afk
@@ -181,5 +181,6 @@ Prefix Default: '.' ya ',' (Apne bot ke hisab se use karein)
 • .paste       - Bade text ka hastebin/pastebin par short link banane ke liye.
 
 ============================================================
-              🔥 APNA USERBOT ENJOY KAREIN! 🔥
+               🔥 APNA USERBOT ENJOY KAREIN! 🔥
 ============================================================
+
