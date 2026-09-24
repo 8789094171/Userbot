@@ -52,7 +52,7 @@
 ============================================================
 
 🤖 SYSTEM CONTROL:     .alive, .ping, .restart, .update, .shutdown, .logs, .refresh
-👮 GROUP MODERATION:   .ban, .unban, .kick, .mute, .unmute, .dban, .dmute, .pin, .unpin, .purge, .del, .lock, .muteall, .unmuteall, .zombies, .unbanall, .warn, .unwarn, .resetwarn, .admins
+👮 GROUP MODERATION:   .ban, .unban, .kick, .mute, .unmute, .dban, .dmute, .pin, .unpin, .purge, .del, .lock, .muteall, .unmuteall, .zombies, .unbanall, .warn, .unwarn, .resetwarn, .promote, .demote, .settitle, .setgpic, .invitelink, .revoke, .whois, .admins
 🛡️ PM SECURITY:       .pmpermit, .a, .da, .block, .unblock
 🎭 CLONING & FUN:      .clone, .revert, .echo, .rmecho, .vapor, .tiny, .reverse, .bold, .italic, .mono
 💥 SPAM & RAID:        .spam, .cspam, .wspam, .delayspam, .raid, .replyraid, .hang, .afk
@@ -97,7 +97,15 @@ Prefix Default: '.' ya ',' (Apne bot ke hisab se use karein)
 • .warn <usr>   - Kisi user ko warning dene ke liye.
 • .unwarn <usr> - Warning remove karne ke liye.
 • .resetwarn    - Saari warnings reset karne ke liye.
+• .promote <usr>- Kisi user ko group admin banana ke liye.
+• .demote <usr> - Group admin ka access remove karne ke liye.
+• .settitle <txt> - Group ka title ya admin title set karne ke liye.
+• .setgpic      - Group ka profile photo update karne ke liye.
+• .invitelink   - Group invite link generate karne ke liye.
+• .revoke       - Invite link revoke/reset karne ke liye.
+• .whois / .userinfo - Kisi member ke details aur profile info dekhne ke liye.
 • .admins       - Group ke current admins aur permissions ko dekhne ke liye.
+• .clear / .clean - Group ke old messages ya temporary chat logs clean karne ke liye.
 
 🛡️ PM SECURITY & ANTI-PM (Inbox Safe Rakhne Ke Liye)
 ------------------------------------------------------------
