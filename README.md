@@ -52,7 +52,7 @@
 ============================================================
 
 🤖 SYSTEM CONTROL:     .alive, .ping, .restart, .update, .shutdown, .logs, .refresh
-👮 GROUP MODERATION:   .ban, .unban, .kick, .mute, .unmute, .dban, .dmute, .pin, .unpin, .purge, .del, .lock, .muteall, .unmuteall, .zombies, .unbanall
+👮 GROUP MODERATION:   .ban, .unban, .kick, .mute, .unmute, .dban, .dmute, .pin, .unpin, .purge, .del, .lock, .muteall, .unmuteall, .zombies, .unbanall, .warn, .unwarn, .resetwarn, .admins
 🛡️ PM SECURITY:       .pmpermit, .a, .da, .block, .unblock
 🎭 CLONING & FUN:      .clone, .revert, .echo, .rmecho, .vapor, .tiny, .reverse, .bold, .italic, .mono
 💥 SPAM & RAID:        .spam, .cspam, .wspam, .delayspam, .raid, .replyraid, .hang, .afk
@@ -94,6 +94,10 @@ Prefix Default: '.' ya ',' (Apne bot ke hisab se use karein)
 • .unmuteall    - Mute kiye gaye poore group ko ek sath unlock karne ke liye.
 • .zombies      - Group me jitne bhi "Deleted Accounts" hain, unhe nikalne (kick) ke liye.
 • .unbanall     - Group ke saare banned members ko ek sath unban karne ke liye.
+• .warn <usr>   - Kisi user ko warning dene ke liye.
+• .unwarn <usr> - Warning remove karne ke liye.
+• .resetwarn    - Saari warnings reset karne ke liye.
+• .admins       - Group ke current admins aur permissions ko dekhne ke liye.
 
 🛡️ PM SECURITY & ANTI-PM (Inbox Safe Rakhne Ke Liye)
 ------------------------------------------------------------
