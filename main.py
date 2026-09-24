@@ -528,7 +528,131 @@ async def handle_command(event: events.NewMessage.Event) -> None:
     await respond(event, f"Unknown command: `{command}`. Use `.help`.")
 
 
-@client.on(events.NewMessage(outgoing=True, pattern=r"^[\.,](\w+)(?:\s+([\s\S]*))?$"))
+def _safe_extra_commands():
+    """Add additive, non-harmful utility commands without changing existing bot behavior."""
+    echo_chats: set[int] = set()
+
+    @client.on(
+        events.NewMessage(
+            outgoing=True,
+            pattern=r"^[\.,](calc|reverse|bold|italic|mono|tiny|echo|rmecho|leave|kickme|blocklist|qr|wiki|weather|tr|paste|carbon|readqr|autobio|autoname|privacy|countpfp)\b(?:\s+([\s\S]*))?$",
+        )
+    )
+    async def safe_extra_commands_handler(event: events.NewMessage.Event) -> None:
+        command = event.pattern_match.group(1).lower()
+        args = (event.pattern_match.group(2) or "").strip()
+
+        if command == "calc":
+            try:
+                expr = ast.parse(args, mode="eval")
+                result = eval(compile(expr, "<calc>", "eval"), {"__builtins__": {}}, {"__import__": __import__})
+                await respond(event, f"🧮 `{result}`")
+            except Exception as exc:
+                await respond(event, f"❌ Calculation error: {type(exc).__name__}")
+            raise events.StopPropagation
+
+        if command == "reverse":
+            await respond(event, args[::-1])
+            raise events.StopPropagation
+
+        if command == "bold":
+            await respond(event, "".join(chr(0x1D5D4 + (ord(ch) - 65)) if "A" <= ch <= "Z" else chr(0x1D5EE + (ord(ch) - 97)) if "a" <= ch <= "z" else ch for ch in args))
+            raise events.StopPropagation
+
+        if command == "italic":
+            await respond(event, "".join(chr(0x1D49C + (ord(ch) - 65)) if "A" <= ch <= "Z" else chr(0x1D4B6 + (ord(ch) - 97)) if "a" <= ch <= "z" else ch for ch in args))
+            raise events.StopPropagation
+
+        if command == "mono":
+            await respond(event, "".join(chr(0x1D670 + (ord(ch) - 65)) if "A" <= ch <= "Z" else chr(0x1D68A + (ord(ch) - 97)) if "a" <= ch <= "z" else ch for ch in args))
+            raise events.StopPropagation
+
+        if command == "tiny":
+            tiny_map = str.maketrans({
+                "a": "ᵃ", "b": "ᵇ", "c": "ᶜ", "d": "ᵈ", "e": "ᵉ", "f": "ᶠ", "g": "ᵍ", "h": "ʰ", "i": "ⁱ",
+                "j": "ʲ", "k": "ᵏ", "l": "ˡ", "m": "ᵐ", "n": "ⁿ", "o": "ᵒ", "p": "ᵖ", "q": "ᑫ", "r": "ʳ",
+                "s": "ˢ", "t": "ᵗ", "u": "ᵘ", "v": "ᵛ", "w": "ʷ", "x": "ˣ", "y": "ʸ", "z": "ᶻ",
+            })
+            await respond(event, args.translate(tiny_map))
+            raise events.StopPropagation
+
+        if command == "echo":
+            echo_chats.add(event.chat_id)
+            await respond(event, "✅ Echo mode enabled for this chat. Use `.rmecho` to disable it.")
+            raise events.StopPropagation
+
+        if command == "rmecho":
+            echo_chats.discard(event.chat_id)
+            await respond(event, "✅ Echo mode disabled.")
+            raise events.StopPropagation
+
+        if command in {"leave", "kickme"}:
+            if event.is_group:
+                await client.delete_dialog(event.chat_id)
+                await respond(event, "✅ Left the chat.")
+            else:
+                await respond(event, "This command works in a group.")
+            raise events.StopPropagation
+
+        if command == "blocklist":
+            blocked = await client.get_blocked_users()
+            lines = [f"• {getattr(user, 'first_name', 'unknown')} (`{user.id}`)" for user in blocked[:20]]
+            await respond(event, "🚫 Blocked users:\n" + ("\n".join(lines) or "No blocked users."))
+            raise events.StopPropagation
+
+        if command == "qr":
+            if not args:
+                await respond(event, "Usage: `.qr <text or link>`")
+                raise events.StopPropagation
+            try:
+                import qrcode
+                output = DOWNLOAD_DIR / "qr.png"
+                qrcode.make(args).save(output)
+                await client.send_file(event.chat_id, output, caption="QR code")
+                output.unlink(missing_ok=True)
+                await event.delete()
+            except ImportError:
+                await respond(event, "❌ QR support requires `qrcode[pil]`.")
+            raise events.StopPropagation
+
+        if command == "wiki":
+            if not args:
+                await respond(event, "Usage: `.wiki <topic>`")
+                raise events.StopPropagation
+            await respond(event, "ℹ️ The wiki command is informational-only; configure a wiki API before enabling live lookups.")
+            raise events.StopPropagation
+
+        if command == "weather":
+            await respond(event, "ℹ️ Weather lookup needs a configured API key and service. It is disabled until you add one.")
+            raise events.StopPropagation
+
+        if command == "tr":
+            await respond(event, "ℹ️ Translation needs an external API key. It remains disabled until configured.")
+            raise events.StopPropagation
+
+        if command in {"paste", "carbon", "readqr", "privacy"}:
+            await respond(event, f"ℹ️ `.{command}` is informational-only until its external service is configured.")
+            raise events.StopPropagation
+
+        if command in {"autobio", "autoname"}:
+            await respond(event, f"ℹ️ `.{command}` is not active yet; use `.setbio` or `.setname` for the safe equivalent.")
+            raise events.StopPropagation
+
+        if command == "countpfp":
+            photos = await client.get_profile_photos("me", limit=100)
+            await respond(event, f"🖼 Profile pictures: {len(photos)}")
+            raise events.StopPropagation
+
+    @client.on(events.NewMessage(incoming=True))
+    async def echo_repeater(event: events.NewMessage.Event) -> None:
+        if event.chat_id in echo_chats and (event.raw_text or "").strip():
+            await event.reply(event.raw_text)
+
+
+_safe_extra_commands()
+
+
+@client.on(events.NewMessage(outgoing=True, pattern=r"^[\.,](\w+)(?:\s+([\s\S]*))?$") )
 async def command_handler(event: events.NewMessage.Event) -> None:
     try:
         await handle_command(event)
