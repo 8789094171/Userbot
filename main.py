@@ -1,7 +1,7 @@
 """Simple Telegram bot powered by python-telegram-bot.
 
 Required environment variable:
-    BOT_TOKEN  Token provided by @BotFather
+    BOT_TOKEN  8978138611:AAEcOD-oMHxgRZxE_6pZh7VPhhAiSvthWMU
 
 Install:
     pip install python-telegram-bot
